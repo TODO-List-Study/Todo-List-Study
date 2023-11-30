@@ -1,7 +1,7 @@
-# Todo-List-Kotlin
+# Todo-List-Kotlin Study
 
 ## Reference
-> Made By 극락코딩
+> 극락코딩
 
 <hr>
 
@@ -31,6 +31,7 @@
 
 **1주차**
 - (assignment) in-memory 기반 todo-list 구현
+- (assignment) 봉투 패턴 적용 및 에러 전역처리
 - (cs) spring mvc의 동작원리 파악  
 
 **2주차**
@@ -42,7 +43,7 @@
 **3주차**
 - (assignment) viewer를 count해주는 api를 만들어주세요. api 호출 진행시, viewer를 1만큼 올려주도록요. (DB에 count 데이터 필요)
 - (assignment) api-doc 및 테스트 커버러지 (swagger, rest docs, jacoco)
-- (assignment) Cahcing을 이용하여 조회속도를 
+- (assignment) Cahcing을 이용하여 조회속도를 향상시켜보자
 - (cs) test-code (stub, mock)
   - 통합 테스트, 단위 테스트.. 등등 많은 테스트가 있는데, 이건 뭐고, 테스트는 왜 작성해야할까?
   - Caching을 적용해야하는 이유는 알겠는데, Local Cahce, Redis? 뭐가 더좋고 분산시에는?
@@ -62,9 +63,17 @@
 
 **6주차**
 - (assignment) 테라폼을 통한 배포환경을 구축하여보자
+- (assignment) 모니터링 시스템을 구축해보자
 - (cs) IaC는 무엇이며, 어떠한 장점이존재하는가?
 
 **7주차**
 - (assignment) 부하테스트 (default는 ngrinder)
+- (assignment) 통합테스트를 작성하여보자 (testcontainer)
 - (cs) 성능 지표 기반의 개선 방법
-  - 부하가 발생했다. cpu가 터지네? api-latency느리네?, ram이 부족하네! 
+  - 부하가 발생했다. cpu가 터지네? api-latency느리네?, ram이 부족하네!
+ 
+**8주차**
+- (assignment) 멀티모듈 패키지로 분리시켜보자
+- (assignment) 서버분산? 할게 있다면 적용해보자!
+- (assignmnet) DB 레플리케이션 처리
+- (cs) 분산서버에서 캐시 동기화 및 클러스터링
