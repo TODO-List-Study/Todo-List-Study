@@ -59,9 +59,9 @@
     - Caching을 적용해야하는 이유는 알겠는데, Local Cahce, Redis? 뭐가 더좋고 분산시에는?
 
 **4주차**
-
 - (assignment) restful api (7 promise) 규칙을 지켜 수정해주세요.
 - (assignment) 변화에 쉽게 대처하기
+- (assignment) DB 스케줄링을 통해 조회수가 5이하인 게시물은 삭제하여주세요
 - (cs) restful이란, http, tcp, udp
 - (cs) 디자인패턴, 내가 생각하는 클린코드
     - 다양한 디자인패턴들.. 언제 어떻게 쓸까?
@@ -78,7 +78,7 @@
 **6주차**
 
 - (assignment) 테라폼을 통한 배포환경을 구축하여보자
-- (assignment) 모니터링 시스템(배포 서버 모니터링 시스템)을 구축해보자
+- (assignment) 모니터링 시스템(배포 서버 모니터링 시스템)을 구축해보자(default grafana)
 - (assignment) 디스코드 에러 알림 처리
 - (cs) IaC는 무엇이며, 어떠한 장점이존재하는가?
 
