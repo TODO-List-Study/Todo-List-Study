@@ -107,6 +107,8 @@
 - 브랜치 이름 : 주차-github 아이디
 - Repository를 fork하여 PR 올려주세요
 
+## Discord Webhook
+
 ## Group Member
 
 - @seonghoo1217
