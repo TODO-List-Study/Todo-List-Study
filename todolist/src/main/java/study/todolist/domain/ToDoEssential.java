@@ -9,5 +9,5 @@ public class ToDoEssential {
 
     private Category category;
 
-    private LocalDateTime localDateTime;
+    private LocalDateTime postTime;
 }
