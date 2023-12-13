@@ -15,4 +15,10 @@ public class ToDo {
     private int viewer;
 
     private Member member;
+
+    public ToDo(ToDoEssential toDoEssential, int viewer, Member member) {
+        this.toDoEssential = toDoEssential;
+        this.viewer = viewer;
+        this.member = member;
+    }
 }
