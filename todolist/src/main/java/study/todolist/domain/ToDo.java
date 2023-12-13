@@ -1,12 +1,15 @@
 package study.todolist.domain;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ToDo {
     private Long id;
 
@@ -16,8 +19,8 @@ public class ToDo {
 
     private Member member;
 
-    public ToDo(ToDoEssential toDoEssential, int viewer, Member member) {
-        this.toDoEssential = toDoEssential;
+    public ToDo(String title, String contents, Category category, LocalDateTime postTime, int viewer, Member member) {
+        this.toDoEssential = new ToDoEssential(title, contents, category, postTime);
         this.viewer = viewer;
         this.member = member;
     }
