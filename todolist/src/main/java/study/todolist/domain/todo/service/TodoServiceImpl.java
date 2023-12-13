@@ -26,6 +26,12 @@ public class TodoServiceImpl implements TodoService {
         return Optional.ofNullable(cache.get(id)).filter(todo -> !todo.isDeleted()).map(ViewSingleResponse::new);
     }
 
+    public Optional<ViewSingleResponse> getSingleTodo(Long id) {
+        return Optional.ofNullable(cache.get(id))
+                .filter(todo -> !todo.isDeleted())
+                .map(ViewSingleResponse::new);
+    }
+
     public Optional<ViewSingleResponse> updateTodo(Long id, String taskStr) {
         TodoTask task = TodoTask.from(taskStr);
         Optional<Todo> todoOptional = Optional.ofNullable(cache.get(id)).filter(todo -> !todo.isDeleted());

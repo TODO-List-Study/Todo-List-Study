@@ -7,11 +7,13 @@ public class ViewSingleResponse {
     private Long id;
     private String task;
     private Priority priority;
+    private Boolean deleted;
 
     public ViewSingleResponse(Todo todo) {
         this.id = todo.getId();
         this.task = todo.getTask().getTask();
         this.priority = todo.getPriority();
+        this.deleted = todo.isDeleted();
     }
 
     public Long getId() {
@@ -24,5 +26,9 @@ public class ViewSingleResponse {
 
     public Priority getPriority() {
         return priority;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
     }
 }
