@@ -1,6 +1,5 @@
 package study.todolist.domain.repository;
 
-import lombok.Getter;
 import study.todolist.domain.ToDo;
 
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Getter
+@org.springframework.stereotype.Repository
 public class ToDoRepository extends Repository {
     private final ConcurrentHashMap<Long, ToDo> todoDB = new ConcurrentHashMap<>();
 
