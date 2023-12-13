@@ -1,5 +1,6 @@
 package study.todolist.domain.todo.database;
 
+import java.util.Collection;
 import java.util.concurrent.*;
 
 public class ConcurrentLRUCacheDB<K, V> {
@@ -33,5 +34,9 @@ public class ConcurrentLRUCacheDB<K, V> {
             queue.remove(key);
             map.remove(key);
         }
+    }
+
+    public Collection<V> values() {
+        return map.values();
     }
 }

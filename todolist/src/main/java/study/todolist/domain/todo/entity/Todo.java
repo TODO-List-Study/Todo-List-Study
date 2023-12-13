@@ -30,4 +30,9 @@ public class Todo extends BaseEntity {
     public Priority getPriority() {
         return priority;
     }
+
+    @Override
+    public boolean isDeleted() {
+        return super.isDeleted();
+    }
 }

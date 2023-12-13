@@ -6,12 +6,15 @@ import study.todolist.domain.todo.dto.response.ViewSingleResponse;
 import study.todolist.domain.todo.entity.Todo;
 import study.todolist.domain.todo.entity.TodoTask;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class TodoServiceImpl implements TodoService {
     private ConcurrentLRUCacheDB<Long, Todo> cache;
 
-    public TodoServiceImpl(final int maxSize) {
+    public TodoServiceImpl(int maxSize) {
         this.cache = new ConcurrentLRUCacheDB<>(maxSize);
     }
 
@@ -22,8 +25,12 @@ public class TodoServiceImpl implements TodoService {
         return new ViewSingleResponse(todo);
     }
 
-    public Optional<ViewSingleResponse> getTodo(Long id) {
-        return Optional.ofNullable(cache.get(id)).filter(todo -> !todo.isDeleted()).map(ViewSingleResponse::new);
+    public List<ViewSingleResponse> getAllTodos() {
+        return cache.values().stream()
+                .filter(todo -> !todo.isDeleted())
+                .sorted(Comparator.comparing(Todo::getPriority).reversed())
+                .map(ViewSingleResponse::new)
+                .collect(Collectors.toList());
     }
 
     public Optional<ViewSingleResponse> getSingleTodo(Long id) {
