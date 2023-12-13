@@ -6,6 +6,11 @@ public class TodoRequest {
     private String task;
     private Priority priority;
 
+    public TodoRequest(String task, String priority) {
+        this.task = task;
+        this.priority = Priority.valueOf(priority.toUpperCase());
+    }
+
     public String getTask() {
         return task;
     }

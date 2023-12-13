@@ -41,4 +41,13 @@ public class TodoTask {
     public int hashCode() {
         return Objects.hash(task);
     }
+
+    @Override
+    public String toString() {
+        return task;
+    }
+
+    public String getTask() {
+        return task;
+    }
 }
