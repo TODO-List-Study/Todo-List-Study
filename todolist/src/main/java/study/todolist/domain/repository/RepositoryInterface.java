@@ -12,4 +12,6 @@ public interface RepositoryInterface {
     void deleteById(Long id, ConcurrentHashMap<Long, Object> db);
 
     List<Object> findAll(ConcurrentHashMap<Long, Object> db);
+
+    void deleteAll(ConcurrentHashMap<Long, Object> db);
 }

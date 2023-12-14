@@ -55,4 +55,17 @@ public class TodoRepositoryTest {
 
         assertThat(todoList.size()).isEqualTo(10);
     }
+
+    @Test
+    @DisplayName("DB 삭제 로직 테스트")
+    public void todoRepositoryDeleteTest(){
+        //given
+        Long targetId = 10L;
+
+        //when
+        toDoRepository.deleteById(targetId);
+
+        //then
+        assertThat(toDoRepository.findAll().size()).isEqualTo(9);
+    }
 }

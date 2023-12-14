@@ -29,4 +29,8 @@ public class ToDoRepository extends Repository {
                                     .map(o -> (ToDo)o)
                                     .toList();
     }
+
+    public void deleteAll(){
+        super.deleteAll(todoDB);
+    }
 }
