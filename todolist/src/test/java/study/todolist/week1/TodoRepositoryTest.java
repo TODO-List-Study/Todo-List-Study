@@ -28,6 +28,8 @@ public class TodoRepositoryTest {
 
     @BeforeEach
     public void setUpDummy(){
+        toDoRepository.deleteAll();
+
         for (int i=1;i<=10;i++){
             ToDo toDo = new ToDo("test title" + i, "test contents" + i, Category.SIMPLE, LocalDateTime.now(), 0, new Member());
             toDoRepository.save(1L, toDo);
