@@ -1,8 +1,11 @@
 package study.todolist.base;
 
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Getter
 public abstract class BaseEntity {
     private static final AtomicLong idGenerator = new AtomicLong(0);
     private Long id;

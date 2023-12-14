@@ -1,8 +1,12 @@
 package study.todolist.domain.todo.dto.response;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import study.todolist.domain.todo.entity.Todo;
 import study.todolist.domain.todo.util.Priority;
 
+@Getter
+@NoArgsConstructor
 public class ViewSingleResponse {
     private Long id;
     private String task;

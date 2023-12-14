@@ -1,7 +1,11 @@
 package study.todolist.domain.todo.dto.request;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import study.todolist.domain.todo.util.Priority;
 
+@Getter
+@NoArgsConstructor
 public class TodoRequest {
     private String task;
     private Priority priority;

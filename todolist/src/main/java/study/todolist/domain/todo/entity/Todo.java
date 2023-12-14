@@ -1,18 +1,19 @@
 package study.todolist.domain.todo.entity;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import study.todolist.base.BaseEntity;
 import study.todolist.domain.todo.util.Priority;
 
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Todo extends BaseEntity {
     private TodoTask task;
     private Boolean isCompleted;
     private Priority priority;
-
-    private Todo(TodoTask task, Boolean isCompleted, Priority priority) {
-        this.task = task;
-        this.isCompleted = isCompleted;
-        this.priority = priority;
-    }
 
     public static Todo of(TodoTask task, Boolean isCompleted, Priority priority) {
         return new Todo(task, isCompleted, priority);
