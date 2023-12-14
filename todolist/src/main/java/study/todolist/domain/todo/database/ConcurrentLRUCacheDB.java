@@ -19,6 +19,10 @@ public class ConcurrentLRUCacheDB<K, V> {
     }
 
     public void put(K key, V value) {
+        if (key == null) {
+            return;
+        }
+
         if (map.containsKey(key)) {
             queue.remove(key);
         } else if (queue.size() == maxSize) {

@@ -1,12 +1,18 @@
 package study.todolist.domain.todo.entity;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.Objects;
 
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TodoTask {
 
     private static final String INVALID_TITLE_LENGTH_MESSAGE = "공백을 제외하고 최소 1글자 이상이어야 합니다.";
 
-    private final String task;
+    private String task;
 
     private TodoTask(String task) {
         this.task = task;
@@ -39,7 +45,7 @@ public class TodoTask {
 
     @Override
     public int hashCode() {
-        return Objects.hash(task);
+        return Objects.hashCode(task);
     }
 
     @Override
