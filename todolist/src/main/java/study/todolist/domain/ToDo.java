@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ToDo {
-    private Long id;
 
     private ToDoEssential toDoEssential;
 
