@@ -16,6 +16,7 @@ import study.todolist.domain.repository.Repository;
 import study.todolist.domain.repository.ToDoRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -44,5 +45,14 @@ public class TodoRepositoryTest {
 
         //then
         assertThat(saveToDo.hashCode()).isEqualTo(toDoRepository.findById(11L).hashCode());
+    }
+
+    @Test
+    @DisplayName("DB findAll 메서드 테스트")
+    public void todoRepositoryFindAllTest(){
+        //given && when
+        List<ToDo> todoList = toDoRepository.findAll();
+
+        assertThat(todoList.size()).isEqualTo(10);
     }
 }
