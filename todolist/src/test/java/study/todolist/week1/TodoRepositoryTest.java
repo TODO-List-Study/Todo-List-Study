@@ -1,18 +1,13 @@
 package study.todolist.week1;
 
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import study.todolist.domain.Category;
 import study.todolist.domain.Member;
 import study.todolist.domain.ToDo;
-import study.todolist.domain.ToDoEssential;
-import study.todolist.domain.repository.Repository;
 import study.todolist.domain.repository.ToDoRepository;
 
 import java.time.LocalDateTime;
