@@ -5,7 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.DayOfWeek;
+import java.time.ZonedDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -17,5 +18,7 @@ public class ToDoEssential {
 
     private Category category;
 
-    private LocalDateTime postTime;
+    private ZonedDateTime postTime;
+
+    private DayOfWeek dayOfWeek;
 }

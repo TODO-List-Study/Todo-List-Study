@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter
 @AllArgsConstructor
@@ -18,8 +18,8 @@ public class ToDo {
 
     private Member member;
 
-    public ToDo(String title, String contents, Category category, LocalDateTime postTime, int viewer, Member member) {
-        this.toDoEssential = new ToDoEssential(title, contents, category, postTime);
+    public ToDo(String title, String contents, Category category, ZonedDateTime postTime, int viewer, Member member) {
+        this.toDoEssential = new ToDoEssential(title, contents, category, postTime, postTime.getDayOfWeek());
         this.viewer = viewer;
         this.member = member;
     }

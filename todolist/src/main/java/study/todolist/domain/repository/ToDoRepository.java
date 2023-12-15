@@ -11,8 +11,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ToDoRepository extends Repository {
     private final ConcurrentHashMap<Long, ToDo> todoDB = new ConcurrentHashMap<>();
 
-    public ToDo save(Long id, ToDo todo) {
-        return (ToDo) super.save(id, todo, todoDB);
+    public Long save(Long id, ToDo todo) {
+        super.save(id, todo, todoDB);
+        return id;
     }
 
     public Optional<ToDo> findById(Long id) {
@@ -25,12 +26,12 @@ public class ToDoRepository extends Repository {
 
     public List<ToDo> findAll() {
         return super.findAll(todoDB).stream()
-                                    .filter(Objects::nonNull)
-                                    .map(o -> (ToDo)o)
-                                    .toList();
+                .filter(Objects::nonNull)
+                .map(o -> (ToDo) o)
+                .toList();
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         super.deleteAll(todoDB);
     }
 }
