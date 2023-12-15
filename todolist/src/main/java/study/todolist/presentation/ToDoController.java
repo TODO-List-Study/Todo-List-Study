@@ -41,4 +41,11 @@ public class ToDoController {
 
         return ResponseEnvelope.of(todoList);
     }
+
+    @DeleteMapping("/{uuid}")
+    public ResponseEnvelope<?> deleteToDoByUuid(@PathVariable UUID uuid) {
+        toDoCommandService.deleteToDoByUuid(uuid);
+
+        return ResponseEnvelope.of(null);
+    }
 }

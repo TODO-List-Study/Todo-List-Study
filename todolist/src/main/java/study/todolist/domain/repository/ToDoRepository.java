@@ -38,4 +38,13 @@ public class ToDoRepository extends Repository {
     public Optional<ToDo> findByUuid(UUID uuid) {
         return this.findAll().stream().filter(toDo -> toDo.getUuid().equals(uuid)).findFirst();
     }
+
+    public void deleteByUuid(UUID uuid) {
+        for (Long id : todoDB.keySet()) {
+            if (todoDB.get(id).getUuid().equals(uuid)) {
+                todoDB.remove(id);
+                return;
+            }
+        }
+    }
 }
