@@ -16,7 +16,7 @@ public abstract class Repository implements RepositoryInterface {
             save(id, object, db);
         }
         db.put(id, object);
-        return id;
+        return db.get(id);
     }
 
     @Override

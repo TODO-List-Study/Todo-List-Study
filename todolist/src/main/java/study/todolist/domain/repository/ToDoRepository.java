@@ -5,15 +5,15 @@ import study.todolist.domain.ToDo;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @org.springframework.stereotype.Repository
 public class ToDoRepository extends Repository {
     private final ConcurrentHashMap<Long, ToDo> todoDB = new ConcurrentHashMap<>();
 
-    public Long save(Long id, ToDo todo) {
-        super.save(id, todo, todoDB);
-        return id;
+    public ToDo save(Long id, ToDo todo) {
+        return (ToDo) super.save(id, todo, todoDB);
     }
 
     public Optional<ToDo> findById(Long id) {
@@ -33,5 +33,9 @@ public class ToDoRepository extends Repository {
 
     public void deleteAll() {
         super.deleteAll(todoDB);
+    }
+
+    public Optional<ToDo> findByUuid(UUID uuid) {
+        return this.findAll().stream().filter(toDo -> toDo.getUuid().equals(uuid)).findFirst();
     }
 }

@@ -7,7 +7,10 @@ import study.todolist.application.ToDoQueryService;
 import study.todolist.global.dto.ResponseEnvelope;
 import study.todolist.presentation.dto.req.CreateToDoReq;
 import study.todolist.presentation.dto.res.ToDoDetailRes;
-import study.todolist.presentation.dto.res.ToDoIdRes;
+import study.todolist.presentation.dto.res.ToDoUuidRes;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/todos")
@@ -19,16 +22,23 @@ public class ToDoController {
     private final ToDoQueryService toDoQueryService;
 
     @PostMapping
-    public ResponseEnvelope<ToDoIdRes> createToDo(@RequestBody CreateToDoReq createToDoReq) {
-        Long toDoId = toDoCommandService.createToDo(createToDoReq.title(), createToDoReq.contents(), createToDoReq.category(), createToDoReq.postTime());
+    public ResponseEnvelope<ToDoUuidRes> createToDo(@RequestBody CreateToDoReq createToDoReq) {
+        UUID uuid = toDoCommandService.createToDo(createToDoReq.title(), createToDoReq.contents(), createToDoReq.category(), createToDoReq.postTime());
 
-        return ResponseEnvelope.of(new ToDoIdRes(toDoId));
+        return ResponseEnvelope.of(new ToDoUuidRes(uuid));
     }
 
     @GetMapping
-    public ResponseEnvelope<ToDoDetailRes> findToDoById(@RequestParam("toDoId") Long todoId) {
-        ToDoDetailRes toDoDetailRes = toDoQueryService.findToDoById(todoId);
+    public ResponseEnvelope<ToDoDetailRes> findToDoById(@RequestParam("uuid") UUID uuid) {
+        ToDoDetailRes toDoDetailRes = toDoQueryService.findToDoByUuid(uuid);
 
         return ResponseEnvelope.of(toDoDetailRes);
+    }
+
+    @GetMapping("/list")
+    public ResponseEnvelope<List<ToDoDetailRes>> findAllToDo() {
+        List<ToDoDetailRes> todoList = toDoQueryService.findAllToDo();
+
+        return ResponseEnvelope.of(todoList);
     }
 }
