@@ -11,27 +11,27 @@ public class InMemoryDB<K, V> {
     private final ConcurrentHashMap<K, V> map = new ConcurrentHashMap<>();
 
     public V findById(K key) {
-        if (key == null) {
-            throw new IllegalArgumentException("Key must not be null");
-        }
+        validateKey(key);
         return map.get(key);
     }
 
     public void save(K key, V value) {
-        if (key == null) {
-            throw new IllegalArgumentException("Key must not be null");
-        }
+        validateKey(key);
         map.put(key, value);
     }
 
     public void deleteById(K key) {
-        if (key == null) {
-            throw new IllegalArgumentException("Key must not be null");
-        }
+        validateKey(key);
         map.remove(key);
     }
 
     public List<V> findAll() {
         return map.values().stream().collect(Collectors.toList());
+    }
+
+    private void validateKey(K key) {
+        if (key == null) {
+            throw new IllegalArgumentException("키는 Null이 아니여야 합니다.");
+        }
     }
 }
