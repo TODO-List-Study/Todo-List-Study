@@ -26,6 +26,10 @@ public class RsData<T> {
         return of("F-1", "실패", data);
     }
 
+    public static <T> RsData<T> failOf(String message) {
+        return of("F-1", message, null);
+    }
+
     public boolean isSuccess() {
         return resultCode.startsWith("S-");
     }
@@ -33,4 +37,5 @@ public class RsData<T> {
     public boolean isFail() {
         return !isSuccess();
     }
+
 }

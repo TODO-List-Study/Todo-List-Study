@@ -7,10 +7,10 @@ import study.todolist.domain.todo.dto.request.TodoRequest;
 import study.todolist.domain.todo.dto.response.ViewSingleResponse;
 import study.todolist.domain.todo.entity.Todo;
 import study.todolist.domain.todo.entity.TodoTask;
+import study.todolist.domain.todo.exception.NotFoundException;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,31 +37,34 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public Optional<ViewSingleResponse> getSingleTodo(Long id) {
-        return Optional.ofNullable(inMemoryDB.findById(id))
-                .filter(todo -> !todo.isDeleted())
-                .map(ViewSingleResponse::new);
-    }
-
-    @Override
-    public Optional<ViewSingleResponse> updateTodo(Long id, String taskStr) {
-        TodoTask task = TodoTask.from(taskStr);
-        Optional<Todo> todoOptional = Optional.ofNullable(inMemoryDB.findById(id)).filter(todo -> !todo.isDeleted());
-        todoOptional.ifPresent(todo -> {
-            todo.setTask(task);
-            inMemoryDB.save(id, todo);
-        });
-        return todoOptional.map(ViewSingleResponse::new);
-    }
-
-    @Override
-    public Optional<ViewSingleResponse> deleteTodo(Long id) {
-        Todo todo = inMemoryDB.findById(id);
-        if (todo != null && !todo.isDeleted()) {
-            todo.delete();
-            return Optional.of(new ViewSingleResponse(todo));
+    public ViewSingleResponse getSingleTodo(Long id) {
+        Todo todo = inMemoryDB.findById(id).orElseThrow(() -> new NotFoundException("해당 ID의 할 일이 존재하지 않습니다."));
+        if (todo.isDeleted()) {
+            throw new NotFoundException("해당 ID의 할 일이 삭제되었습니다.");
         }
-        return Optional.empty();
+        return new ViewSingleResponse(todo);
+    }
+
+    @Override
+    public ViewSingleResponse updateTodo(Long id, String taskStr) {
+        Todo todo = inMemoryDB.findById(id).orElseThrow(() -> new NotFoundException("해당 ID의 할 일이 존재하지 않습니다."));
+        if (todo.isDeleted()) {
+            throw new NotFoundException("해당 ID의 할 일이 삭제되었습니다.");
+        }
+        TodoTask task = TodoTask.from(taskStr);
+        todo.setTask(task);
+        inMemoryDB.save(id, todo);
+        return new ViewSingleResponse(todo);
+    }
+
+    @Override
+    public ViewSingleResponse deleteTodo(Long id) {
+        Todo todo = inMemoryDB.findById(id).orElseThrow(() -> new NotFoundException("해당 ID의 할 일이 존재하지 않습니다."));
+        if (todo.isDeleted()) {
+            throw new NotFoundException("해당 ID의 할 일은 이미 삭제되었습니다.");
+        }
+        todo.delete();
+        return new ViewSingleResponse(todo);
     }
 
 }

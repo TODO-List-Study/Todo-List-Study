@@ -2,6 +2,7 @@ package study.todolist.domain.todo.database;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,9 +11,9 @@ import java.util.stream.Collectors;
 public class InMemoryDB<K, V> {
     private final ConcurrentHashMap<K, V> map = new ConcurrentHashMap<>();
 
-    public V findById(K key) {
+    public Optional<V> findById(K key) {
         validateKey(key);
-        return map.get(key);
+        return Optional.ofNullable(map.get(key));
     }
 
     public void save(K key, V value) {

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import study.todolist.base.RsData;
+import study.todolist.domain.todo.exception.NotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -19,5 +20,10 @@ public class GlobalExceptionHandler {
         } else {
             return RsData.of("F-3", INVALID_INPUT_VALUE);
         }
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public RsData<String> handleNotFoundException(NotFoundException e) {
+        return RsData.failOf(e.getMessage());
     }
 }

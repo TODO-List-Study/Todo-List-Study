@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import study.todolist.base.RsData;
 import study.todolist.domain.todo.dto.request.TodoRequest;
 import study.todolist.domain.todo.dto.response.ViewSingleResponse;
+import study.todolist.domain.todo.exception.NotFoundException;
 import study.todolist.domain.todo.service.TodoServiceImpl;
 
 import java.util.List;
@@ -25,16 +26,24 @@ public class TodoController {
     }
 
     @PatchMapping("/{id}")
-    public RsData<ViewSingleResponse> updateTodo(@PathVariable Long id,
+    public RsData<ViewSingleResponse> updateTodo(@PathVariable("id") Long id,
                                                  @RequestBody TodoRequest request) {
-        Optional<ViewSingleResponse> response = todoService.updateTodo(id, request.getTask());
-        return response.map(RsData::successOf).orElseGet(() -> RsData.failOf(null));
+        try {
+            ViewSingleResponse response = todoService.updateTodo(id, request.getTask());
+            return RsData.successOf(response);
+        } catch (NotFoundException e) {
+            return RsData.failOf(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
-    public RsData<ViewSingleResponse> deleteTodo(@PathVariable Long id) {
-        Optional<ViewSingleResponse> response = todoService.deleteTodo(id);
-        return response.map(RsData::successOf).orElseGet(() -> RsData.failOf(null));
+    public RsData<ViewSingleResponse> deleteTodo(@PathVariable("id") Long id) {
+        try {
+            ViewSingleResponse response = todoService.deleteTodo(id);
+            return RsData.successOf(response);
+        } catch (NotFoundException e) {
+            return RsData.failOf(e.getMessage());
+        }
     }
 
     @GetMapping
@@ -44,8 +53,13 @@ public class TodoController {
     }
 
     @GetMapping("/{id}")
-    public RsData<ViewSingleResponse> getSingleTodo(@PathVariable Long id) {
-        Optional<ViewSingleResponse> response = todoService.getSingleTodo(id);
-        return response.map(RsData::successOf).orElseGet(() -> RsData.failOf(null));
+    public RsData<ViewSingleResponse> getSingleTodo(@PathVariable("id") Long id) {
+        try {
+            ViewSingleResponse response = todoService.getSingleTodo(id);
+            return RsData.successOf(response);
+        } catch (NotFoundException e) {
+            return RsData.failOf(e.getMessage());
+        }
     }
+
 }
