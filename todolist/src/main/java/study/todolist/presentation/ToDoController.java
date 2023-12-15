@@ -28,14 +28,14 @@ public class ToDoController {
         return ResponseEnvelope.of(new ToDoUuidRes(uuid));
     }
 
-    @GetMapping
-    public ResponseEnvelope<ToDoDetailRes> findToDoById(@RequestParam("uuid") UUID uuid) {
+    @GetMapping("/{uuid}")
+    public ResponseEnvelope<ToDoDetailRes> findToDoById(@PathVariable UUID uuid) {
         ToDoDetailRes toDoDetailRes = toDoQueryService.findToDoByUuid(uuid);
 
         return ResponseEnvelope.of(toDoDetailRes);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/me")
     public ResponseEnvelope<List<ToDoDetailRes>> findAllToDo() {
         List<ToDoDetailRes> todoList = toDoQueryService.findAllToDo();
 
