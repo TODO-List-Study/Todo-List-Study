@@ -1,9 +1,12 @@
 package study.todolist.domain.todo.database;
 
+import org.springframework.stereotype.Component;
+
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class InMemoryDB<K, V> {
     private final ConcurrentHashMap<K, V> map = new ConcurrentHashMap<>();
 
