@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import study.todolist.domain.exception.ToDoNotFoundException;
 
 import java.util.Set;
 
@@ -16,7 +17,10 @@ public enum ErrorCode {
     INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "입력 값이 올바르지 않습니다.",
             Set.of(MethodArgumentNotValidException.class, ConstraintViolationException.class)),
     METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, "지원하지 않는 HTTP 메서드입니다.", Set.of(HttpRequestMethodNotSupportedException.class)),
-    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "인증되지 않은 사용자입니다.", Set.of(UnauthorizedException.class));
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "인증되지 않은 사용자입니다.", Set.of(UnauthorizedException.class)),
+
+    //TODO
+    TODO_NOT_FOUND(HttpStatus.BAD_REQUEST, "투두가 존재하지 않습니다", Set.of(ToDoNotFoundException.class));
 
     private final HttpStatusCode status;
     private final String code;

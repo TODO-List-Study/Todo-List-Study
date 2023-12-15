@@ -3,7 +3,7 @@ package study.todolist.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import study.todolist.domain.ToDo;
-import study.todolist.domain.exception.NotFoundToDoException;
+import study.todolist.domain.exception.ToDoNotFoundException;
 import study.todolist.domain.repository.ToDoRepository;
 import study.todolist.presentation.dto.res.ToDoDetailRes;
 
@@ -18,7 +18,7 @@ public class ToDoQueryService {
 
 
     public ToDoDetailRes findToDoByUuid(UUID uuid) {
-        ToDo todo = toDoRepository.findByUuid(uuid).orElseThrow(NotFoundToDoException::new);
+        ToDo todo = toDoRepository.findByUuid(uuid).orElseThrow(ToDoNotFoundException::new);
 
         return new ToDoDetailRes(uuid,
                 todo.getToDoEssential().getTitle(),

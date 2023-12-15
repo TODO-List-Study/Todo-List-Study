@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import study.todolist.domain.Category;
 import study.todolist.domain.Member;
 import study.todolist.domain.ToDo;
-import study.todolist.domain.exception.NotFoundToDoException;
+import study.todolist.domain.exception.ToDoNotFoundException;
 import study.todolist.domain.repository.ToDoRepository;
 
 import java.time.ZonedDateTime;
@@ -25,7 +25,7 @@ public class ToDoCommandService {
     }
 
     public void deleteToDoByUuid(UUID uuid) {
-        ToDo toDo = toDoRepository.findByUuid(uuid).orElseThrow(NotFoundToDoException::new);
+        ToDo toDo = toDoRepository.findByUuid(uuid).orElseThrow(ToDoNotFoundException::new);
 
         toDoRepository.deleteByUuid(toDo.getUuid());
     }
