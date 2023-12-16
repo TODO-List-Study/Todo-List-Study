@@ -80,4 +80,23 @@ class TodoControllerTest {
         // then
         BDDMockito.verify(todoService).findAll();
     }
+
+    @Test
+    @DisplayName("삭제")
+    public void 삭제() throws Exception {
+
+        // given
+        Long id = 1L;
+
+        // stub
+        BDDMockito.willDoNothing().given(todoService).delete(id);
+
+        // when
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/todo/delete/" + id)
+                        .accept(MediaType.APPLICATION_JSON))
+                        .andExpect(MockMvcResultMatchers.status().isOk());
+
+        // then
+        BDDMockito.verify(todoService).delete(id);
+    }
 }

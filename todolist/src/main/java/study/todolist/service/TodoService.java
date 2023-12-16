@@ -46,11 +46,13 @@ public class TodoService {
     }
 
     // 수정 (내용)
-    public void updateTitle(Long id, String title){
+    public Long updateTitle(Long id, String title){
 
         TodoList findTodo = findById(id);
 
         findTodo.updateTitle(title);
+
+        return id;
     }
 
     public void delete(Long id){
