@@ -30,7 +30,7 @@ public class TodoRepository implements MemoryDBRepository<TodoList> {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void delete(Long id) {
 
         DB.removeIf(todo -> todo.getId().equals(id));
     }

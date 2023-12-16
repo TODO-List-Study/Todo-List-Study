@@ -57,6 +57,6 @@ public class TodoService {
 
     public void delete(Long id){
 
-        todoRepository.deleteById(id);
+        todoRepository.delete(id);
     }
 }

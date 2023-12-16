@@ -9,7 +9,7 @@ public interface MemoryDBRepository<T> {
 
     Optional<T> findById(Long id);
 
-    void deleteById(Long id);
+    void delete(Long id);
 
     List<T> findAll();
 }
