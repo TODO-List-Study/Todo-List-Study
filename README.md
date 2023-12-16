@@ -112,3 +112,6 @@
 - @seonghoo1217
 - @jjinwo0
 - @jhnyuk
+
+## Docs
+- [1주차 과제 분석](https://github.com/seonghoo1217/Todo-List-Study/wiki/1%EC%A3%BC%EC%B0%A8-%EA%B3%BC%EC%A0%9C-%EC%A7%84%ED%96%89%EC%83%81%ED%99%A9)
