@@ -24,5 +24,24 @@ public class TodoController {
 
         return ResponseEntity.ok(Envelope.toEnvelope(todoService.findById(id)));
     }
+
+    // 단건조회
+    @GetMapping("/find/{id}")
+    public ResponseEntity findById(@PathVariable("id") Long id){
+
+        TodoList todo = todoService.findById(id);
+        Envelope response = Envelope.toEnvelope(todo);
+
+        return ResponseEntity.ok(response);
+    }
+
+    // 전체조회
+    @GetMapping("/find/all")
+    public ResponseEntity findAll(){
+
+        Envelope envelope = Envelope.toEnvelope(todoService.findAll());
+
+        return ResponseEntity.ok(envelope);
+    }
 }
 
