@@ -43,5 +43,33 @@ public class TodoController {
 
         return ResponseEntity.ok(envelope);
     }
+
+    // 수정
+    @PatchMapping("/update/{id}")
+    public ResponseEntity updateTodo(@PathVariable Long id,
+                                     @RequestBody TodoDto.Request request){
+
+        todoService.updateTitle(id, request.getTitle());
+
+        return ResponseEntity.ok(Envelope.toEnvelope(todoService.findById(id)));
+    }
+
+    // check
+    @PatchMapping("/check/{id}")
+    public ResponseEntity checkTodo(@PathVariable Long id){
+
+        todoService.updateCheck(id);
+
+        return ResponseEntity.ok(Envelope.toEnvelope(todoService.findById(id)));
+    }
+
+    // 삭제
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity deleteTodo(@PathVariable Long id){
+
+        todoService.delete(id);
+
+        return ResponseEntity.ok(true);
+    }
 }
 
