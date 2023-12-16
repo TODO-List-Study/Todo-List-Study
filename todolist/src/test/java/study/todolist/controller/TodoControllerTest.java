@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import study.todolist.dto.TodoDto;
 import study.todolist.entity.TodoList;
 import study.todolist.service.TodoService;
 
@@ -50,7 +51,7 @@ class TodoControllerTest {
         BDDMockito.given(todoService.findById(id)).willReturn(todo);
 
         // when
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/todo/find/{id}", id)
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/todo/find/" + id)
                         .accept(MediaType.APPLICATION_JSON))
                         .andExpect(MockMvcResultMatchers.status().isOk());
 
