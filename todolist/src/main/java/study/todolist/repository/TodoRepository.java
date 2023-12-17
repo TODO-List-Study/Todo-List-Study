@@ -1,11 +1,13 @@
 package study.todolist.repository;
 
+import org.springframework.stereotype.Repository;
 import study.todolist.entity.TodoList;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class TodoRepository implements MemoryDBRepository<TodoList> {
 
     private List<TodoList> DB = new ArrayList<>();
