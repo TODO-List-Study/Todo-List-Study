@@ -19,27 +19,8 @@ public class Envelope<T> {
     private String error;
     private String message;
 
-    public static Envelope toEnvelope(TodoList data){
+    public static <T> Envelope<T> of (T data, String error, String message){
 
-        TodoDto.Response response = TodoDto.Response.builder()
-                .id(data.getId())
-                .title(data.getTitle())
-                .check(data.isChecked())
-                .build();
-
-        return Envelope.builder()
-                .data(response)
-                .build();
-    }
-
-    public static Envelope toEnvelope(List<TodoList> data){
-
-        List<TodoDto.Response> list = data.stream()
-                .map(TodoDto.Response::of)
-                .collect(Collectors.toList());
-
-        return Envelope.builder()
-                .data(list)
-                .build();
+        return new Envelope<>(data, error, message);
     }
 }
