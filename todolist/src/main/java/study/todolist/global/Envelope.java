@@ -29,4 +29,9 @@ public class Envelope<T> {
 
         return of(data, HttpStatus.OK, "성공");
     }
+
+    public static <T> Envelope<T> fail (HttpStatus error, String message){
+
+        return of(null, error, message);
+    }
 }
