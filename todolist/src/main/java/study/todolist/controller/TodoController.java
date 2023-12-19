@@ -8,6 +8,9 @@ import study.todolist.global.Envelope;
 import study.todolist.entity.TodoList;
 import study.todolist.service.TodoService;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/todo")
@@ -18,58 +21,68 @@ public class TodoController {
 
     // 생성
     @PostMapping("/create")
-    public ResponseEntity createTodo(@RequestBody TodoDto.Request request){
+    public Envelope createTodo(@RequestBody TodoDto.Request request){
 
-        Long id = todoService.createTodo(request.getTitle());
+        TodoList todo = todoService.createTodo(request.getTitle());
 
-        return ResponseEntity.ok(Envelope.toEnvelope(todoService.findById(id)));
+        TodoDto.Response response = TodoDto.Response.of(todo);
+
+        return Envelope.success(response);
     }
 
     // 단건조회
     @GetMapping("/find/{id}")
-    public ResponseEntity findById(@PathVariable("id") Long id){
+    public Envelope findById(@PathVariable("id") Long id){
 
         TodoList todo = todoService.findById(id);
-        Envelope response = Envelope.toEnvelope(todo);
 
-        return ResponseEntity.ok(response);
+        TodoDto.Response response = TodoDto.Response.of(todo);
+
+        return Envelope.success(response);
     }
 
     // 전체조회
     @GetMapping("/find/all")
-    public ResponseEntity findAll(){
+    public Envelope findAll(){
 
-        Envelope envelope = Envelope.toEnvelope(todoService.findAll());
+        List<TodoDto.Response> responseList = todoService.findAll().stream()
+                .map(TodoDto.Response::of)
+                .collect(Collectors.toList());
 
-        return ResponseEntity.ok(envelope);
+        return Envelope.success(responseList);
     }
 
     // 수정
     @PatchMapping("/update/{id}")
-    public ResponseEntity updateTodo(@PathVariable Long id,
+    public Envelope updateTodo(@PathVariable Long id,
                                      @RequestBody TodoDto.Request request){
 
-        todoService.updateTitle(id, request.getTitle());
+        Long findId = todoService.updateTitle(id, request.getTitle());
+        TodoList todo = todoService.findById(findId);
 
-        return ResponseEntity.ok(Envelope.toEnvelope(todoService.findById(id)));
+        TodoDto.Response response = TodoDto.Response.of(todo);
+
+        return Envelope.success(response);
     }
 
     // check
     @PatchMapping("/check/{id}")
-    public ResponseEntity checkTodo(@PathVariable Long id){
+    public Envelope checkTodo(@PathVariable Long id){
 
         todoService.updateCheck(id);
+        TodoDto.Response response = TodoDto.Response.of(todoService.findById(id));
 
-        return ResponseEntity.ok(Envelope.toEnvelope(todoService.findById(id)));
+        return Envelope.success(response);
     }
 
     // 삭제
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteTodo(@PathVariable Long id){
+    public Envelope deleteTodo(@PathVariable Long id){
 
         todoService.delete(id);
+        TodoDto.Response response = TodoDto.Response.of(todoService.findById(id));
 
-        return ResponseEntity.ok(true);
+        return Envelope.success(response);
     }
 }
 

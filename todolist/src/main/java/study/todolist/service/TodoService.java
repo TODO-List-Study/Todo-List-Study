@@ -28,13 +28,13 @@ public class TodoService {
     }
 
     // 생성
-    public Long createTodo(String title){
+    public TodoList createTodo(String title){
 
         TodoList todo = TodoList.builder()
                 .title(title)
                 .build();
 
-        return todoRepository.save(todo).getId();
+        return todoRepository.save(todo);
     }
 
     // 수정 (수행 여부)
