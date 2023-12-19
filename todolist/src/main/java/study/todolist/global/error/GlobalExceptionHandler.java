@@ -20,13 +20,13 @@ public class GlobalExceptionHandler {
     public Envelope handleEntityNotFoundException(EntityNotFoundException e){
         log.error("EntityNotFoundException", e);
 
-        return Envelope.fail(e.getErrorCode().getHttpStatus(), e.getMessage());
+        return Envelope.fail(e.getErrorCode().getHttpStatus().value(), e.getMessage());
     }
 
     @ExceptionHandler(BusinessException.class)
     protected Envelope handleException(BusinessException e){
         log.error("Exception", e);
 
-        return Envelope.fail(e.getErrorCode().getHttpStatus(), e.getMessage());
+        return Envelope.fail(e.getErrorCode().getHttpStatus().value(), e.getMessage());
     }
 }

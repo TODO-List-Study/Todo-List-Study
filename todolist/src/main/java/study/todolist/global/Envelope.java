@@ -17,20 +17,20 @@ import java.util.stream.Collectors;
 public class Envelope<T> {
 
     private T data;
-    private HttpStatus error;
+    private int error;
     private String message;
 
-    public static <T> Envelope<T> of (T data, HttpStatus error, String message){
+    public static <T> Envelope<T> of (T data, int error, String message){
 
         return new Envelope<>(data, error, message);
     }
 
     public static <T> Envelope<T> success (T data){
 
-        return of(data, HttpStatus.OK, "성공");
+        return of(data, HttpStatus.OK.value(), "성공");
     }
 
-    public static <T> Envelope<T> fail (HttpStatus error, String message){
+    public static <T> Envelope<T> fail (int error, String message){
 
         return of(null, error, message);
     }
