@@ -18,17 +18,9 @@ public class Todo extends BaseEntity {
         return new Todo(task, isCompleted, priority);
     }
 
-    public TodoTask getTask() {
-        return task;
-    }
-
     public void setTask(TodoTask task) {
         this.task = task;
         update();
-    }
-
-    public Priority getPriority() {
-        return priority;
     }
 
     @Override
