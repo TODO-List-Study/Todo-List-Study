@@ -1,6 +1,8 @@
 package study.todolist.domain;
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +19,7 @@ public class ToDoEssential {
 
     private String contents;
 
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     private ZonedDateTime postTime;
