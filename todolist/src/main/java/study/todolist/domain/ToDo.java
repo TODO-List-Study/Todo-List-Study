@@ -1,5 +1,6 @@
 package study.todolist.domain;
 
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +12,12 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
 public class ToDo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private UUID uuid;
 
@@ -19,6 +25,8 @@ public class ToDo {
 
     private int viewer;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "member_id")
     private Member member;
 
     public ToDo(UUID uuid, String title, String contents, Category category, ZonedDateTime postTime, int viewer, Member member) {

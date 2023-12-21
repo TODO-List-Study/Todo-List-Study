@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import study.todolist.domain.exception.ToDoNotFoundException;
+import study.todolist.domain.exception.ToDoNotPostAbleException;
 
 import java.util.Set;
 
@@ -20,7 +21,8 @@ public enum ErrorCode {
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "인증되지 않은 사용자입니다.", Set.of(UnauthorizedException.class)),
 
     //TODO
-    TODO_NOT_FOUND(HttpStatus.BAD_REQUEST, "투두가 존재하지 않습니다", Set.of(ToDoNotFoundException.class));
+    TODO_NOT_FOUND(HttpStatus.BAD_REQUEST, "투두가 존재하지 않습니다.", Set.of(ToDoNotFoundException.class)),
+    TODO_NOT_POST_ABLE(HttpStatus.BAD_REQUEST, "투두를 포스팅할 수 없습니다.", Set.of(ToDoNotPostAbleException.class));
 
     private final HttpStatusCode status;
     private final String code;
