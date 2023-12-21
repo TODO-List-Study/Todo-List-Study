@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import study.todolist.base.BaseEntity;
-import study.todolist.domain.todo.util.Priority;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

@@ -1,6 +1,6 @@
 package study.todolist.domain.todo.dto.response;
 
-import study.todolist.domain.todo.util.Priority;
+import study.todolist.domain.todo.entity.Priority;
 
 public class ViewAllResponse {
     private Long id;

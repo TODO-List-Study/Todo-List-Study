@@ -1,19 +1,17 @@
 package study.todolist.domain.todo.service;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import study.todolist.domain.todo.database.InMemoryDB;
+import study.todolist.database.InMemoryDB;
 import study.todolist.domain.todo.dto.response.ViewSingleResponse;
 import study.todolist.domain.todo.entity.Todo;
 import study.todolist.domain.todo.entity.TodoTask;
 import study.todolist.domain.todo.exception.NotFoundException;
-import study.todolist.domain.todo.util.Priority;
+import study.todolist.domain.todo.entity.Priority;
 
 import java.util.Arrays;
 import java.util.List;

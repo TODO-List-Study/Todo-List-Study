@@ -1,4 +1,4 @@
-package study.todolist.domain.todo.database;
+package study.todolist.database;
 
 import org.springframework.stereotype.Component;
 

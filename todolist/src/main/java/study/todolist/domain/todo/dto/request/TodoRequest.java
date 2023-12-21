@@ -2,7 +2,7 @@ package study.todolist.domain.todo.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import study.todolist.domain.todo.util.Priority;
+import study.todolist.domain.todo.entity.Priority;
 
 @Getter
 @NoArgsConstructor

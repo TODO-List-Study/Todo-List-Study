@@ -2,7 +2,7 @@ package study.todolist.domain.todo.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import study.todolist.domain.todo.database.InMemoryDB;
+import study.todolist.database.InMemoryDB;
 import study.todolist.domain.todo.dto.request.TodoRequest;
 import study.todolist.domain.todo.dto.response.ViewSingleResponse;
 import study.todolist.domain.todo.entity.Todo;

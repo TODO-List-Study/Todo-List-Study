@@ -3,8 +3,6 @@ package study.todolist.domain.todo.entity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import study.todolist.domain.todo.util.Priority;
 
 import static org.junit.jupiter.api.Assertions.*;
 
