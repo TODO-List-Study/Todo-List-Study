@@ -2,6 +2,7 @@ package study.todolist.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import study.todolist.domain.ToDo;
 import study.todolist.domain.exception.ToDoNotFoundException;
 import study.todolist.domain.repository.ToDoRepository;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ToDoQueryService {
 
     private final ToDoRepository toDoRepository;
