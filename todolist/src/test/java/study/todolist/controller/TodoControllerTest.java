@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import study.todolist.dto.TodoDto;
+import study.todolist.entity.Status;
 import study.todolist.entity.TodoList;
 import study.todolist.service.TodoService;
 
@@ -45,7 +46,7 @@ class TodoControllerTest {
 
         // given
         Long id = 1L;
-        TodoList todo = new TodoList(id, "title", false);
+        TodoList todo = new TodoList("title", Status.BEFORE);
 
         // stub
         BDDMockito.given(todoService.findById(id)).willReturn(todo);
@@ -65,9 +66,9 @@ class TodoControllerTest {
 
         // given
         List<TodoList> response = new ArrayList<>();
-        response.add(new TodoList(1L, "First", false));
-        response.add(new TodoList(2L, "Second", false));
-        response.add(new TodoList(3L, "Third", false));
+        response.add(new TodoList("First", Status.BEFORE));
+        response.add(new TodoList("Second", Status.BEFORE));
+        response.add(new TodoList("Third", Status.BEFORE));
 
         // stub
         BDDMockito.given(todoService.findAll()).willReturn(response);
