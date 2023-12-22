@@ -33,6 +33,7 @@ public class TodoService {
 
         TodoList todo = TodoList.builder()
                 .title(title)
+                .status(Status.BEFORE)
                 .build();
 
         return todoRepository.save(todo);
