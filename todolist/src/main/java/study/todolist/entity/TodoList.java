@@ -23,7 +23,7 @@ public class TodoList{
         this.title = title;
     }
 
-    public void updateChecked(Status status){
+    public void updateStatus(Status status){
         this.status = status;
     }
 }

@@ -2,6 +2,7 @@ package study.todolist.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import study.todolist.entity.Status;
 import study.todolist.entity.TodoList;
 import study.todolist.global.error.ErrorCode;
 import study.todolist.global.error.exception.EntityNotFoundException;
@@ -38,11 +39,11 @@ public class TodoService {
     }
 
     // 수정 (수행 여부)
-    public void updateCheck(Long id){
+    public void updateStatus(Long id, Status status){
 
         TodoList findTodo = findById(id);
 
-        findTodo.updateChecked();
+        findTodo.updateStatus(status);
     }
 
     // 수정 (내용)
