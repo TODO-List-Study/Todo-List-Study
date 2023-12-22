@@ -17,17 +17,14 @@ public class TodoList{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private boolean checked;
+    private Status status;
 
     public void updateTitle(String title){
         this.title = title;
     }
 
-    public void updateChecked(){
-        if (this.checked)
-            this.checked = false;
-
-        else this.checked = true;
+    public void updateChecked(Status status){
+        this.status = status;
     }
 }
 
