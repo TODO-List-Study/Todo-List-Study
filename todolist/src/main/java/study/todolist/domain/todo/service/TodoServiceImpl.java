@@ -1,7 +1,5 @@
 package study.todolist.domain.todo.service;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import study.todolist.domain.todo.TodoRepository;
@@ -9,7 +7,7 @@ import study.todolist.domain.todo.dto.request.TodoRequest;
 import study.todolist.domain.todo.dto.response.ViewSingleResponse;
 import study.todolist.domain.todo.entity.Todo;
 import study.todolist.domain.todo.entity.TodoTask;
-import study.todolist.domain.todo.exception.NotFoundException;
+import study.todolist.domain.todo.exception.TodoNotFoundException;
 
 import java.util.Comparator;
 import java.util.List;
@@ -40,18 +38,18 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public ViewSingleResponse getSingleTodo(Long id) {
-        Todo todo = todoRepository.findById(id).orElseThrow(() -> new NotFoundException("해당 ID의 할 일이 존재하지 않습니다."));
+        Todo todo = todoRepository.findById(id).orElseThrow(() -> new TodoNotFoundException("해당 ID의 할 일이 존재하지 않습니다."));
         if (todo.isDeleted()) {
-            throw new NotFoundException("해당 ID의 할 일이 삭제되었습니다.");
+            throw new TodoNotFoundException("해당 ID의 할 일이 삭제되었습니다.");
         }
         return new ViewSingleResponse(todo);
     }
 
     @Override
     public ViewSingleResponse updateTodo(Long id, String taskStr) {
-        Todo todo = todoRepository.findById(id).orElseThrow(() -> new NotFoundException("해당 ID의 할 일이 존재하지 않습니다."));
+        Todo todo = todoRepository.findById(id).orElseThrow(() -> new TodoNotFoundException("해당 ID의 할 일이 존재하지 않습니다."));
         if (todo.isDeleted()) {
-            throw new NotFoundException("해당 ID의 할 일이 삭제되었습니다.");
+            throw new TodoNotFoundException("해당 ID의 할 일이 삭제되었습니다.");
         }
         TodoTask task = TodoTask.from(taskStr);
         todo.setTask(task);
@@ -61,9 +59,9 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public ViewSingleResponse deleteTodo(Long id) {
-        Todo todo = todoRepository.findById(id).orElseThrow(() -> new NotFoundException("해당 ID의 할 일이 존재하지 않습니다."));
+        Todo todo = todoRepository.findById(id).orElseThrow(() -> new TodoNotFoundException("해당 ID의 할 일이 존재하지 않습니다."));
         if (todo.isDeleted()) {
-            throw new NotFoundException("해당 ID의 할 일은 이미 삭제되었습니다.");
+            throw new TodoNotFoundException("해당 ID의 할 일은 이미 삭제되었습니다.");
         }
         todo.delete();
         return new ViewSingleResponse(todo);

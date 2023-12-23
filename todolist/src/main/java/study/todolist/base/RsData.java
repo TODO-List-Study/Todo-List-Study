@@ -2,36 +2,38 @@ package study.todolist.base;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
+import study.todolist.global.exception.ErrorCode;
 
 @Getter
 @AllArgsConstructor
 public class RsData<T> {
-    private String resultCode;
+    private String status;
     private String message;
     private T data;
 
-    public static <T> RsData<T> of(String resultCode, String msg, T data) {
-        return new RsData<>(resultCode, msg, data);
+    public static <T> RsData<T> of(ErrorCode errorCode) {
+        return new RsData<>(errorCode.getStatus().toString(), errorCode.getMessage(), null);
     }
 
-    public static <T> RsData<T> of(String resultCode, String msg) {
-        return of(resultCode, msg, null);
+    public static <T> RsData<T> of(ErrorCode errorCode, T data) {
+        return new RsData<>(errorCode.getStatus().toString(), errorCode.getMessage(), data);
     }
 
     public static <T> RsData<T> successOf(T data) {
-        return of("S-1", "성공", data);
+        return of(ErrorCode.OK, data);
     }
 
     public static <T> RsData<T> failOf(T data) {
-        return of("F-1", "실패", data);
+        return of(ErrorCode.INTERNAL_SERVER_ERROR, data);
     }
 
     public static <T> RsData<T> failOf(String message) {
-        return of("F-1", message, null);
+        return new RsData<>("F-1", message, null);
     }
 
     public boolean isSuccess() {
-        return resultCode.startsWith("S-");
+        return HttpStatus.OK.toString().equals(this.status);
     }
 
     public boolean isFail() {

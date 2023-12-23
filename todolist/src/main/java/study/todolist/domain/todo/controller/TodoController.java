@@ -4,11 +4,10 @@ import org.springframework.web.bind.annotation.*;
 import study.todolist.base.RsData;
 import study.todolist.domain.todo.dto.request.TodoRequest;
 import study.todolist.domain.todo.dto.response.ViewSingleResponse;
-import study.todolist.domain.todo.exception.NotFoundException;
+import study.todolist.domain.todo.exception.TodoNotFoundException;
 import study.todolist.domain.todo.service.TodoServiceImpl;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/todos")
@@ -31,7 +30,7 @@ public class TodoController {
         try {
             ViewSingleResponse response = todoService.updateTodo(id, request.getTask());
             return RsData.successOf(response);
-        } catch (NotFoundException e) {
+        } catch (TodoNotFoundException e) {
             return RsData.failOf(e.getMessage());
         }
     }
@@ -41,7 +40,7 @@ public class TodoController {
         try {
             ViewSingleResponse response = todoService.deleteTodo(id);
             return RsData.successOf(response);
-        } catch (NotFoundException e) {
+        } catch (TodoNotFoundException e) {
             return RsData.failOf(e.getMessage());
         }
     }
@@ -57,7 +56,7 @@ public class TodoController {
         try {
             ViewSingleResponse response = todoService.getSingleTodo(id);
             return RsData.successOf(response);
-        } catch (NotFoundException e) {
+        } catch (TodoNotFoundException e) {
             return RsData.failOf(e.getMessage());
         }
     }
