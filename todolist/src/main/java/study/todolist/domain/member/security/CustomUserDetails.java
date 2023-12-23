@@ -1,4 +1,4 @@
-package study.todolist.base.security;
+package study.todolist.domain.member.security;
 
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
