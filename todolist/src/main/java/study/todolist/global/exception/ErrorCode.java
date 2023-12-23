@@ -11,6 +11,7 @@ public enum ErrorCode {
     INVALID_KEY_VALUE(HttpStatus.BAD_REQUEST, "키 값이 유효하지 않습니다."),
     INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "입력 값이 올바르지 않습니다."),
     TODO_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 ID의 할 일이 존재하지 않습니다."),
+    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 ID의 회원이 존재하지 않습니다."), // 추가: 회원 존재하지 않음
 
     // 서버 오류
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "내부 서버 오류");
