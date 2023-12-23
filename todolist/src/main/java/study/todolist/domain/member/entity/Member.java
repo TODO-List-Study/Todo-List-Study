@@ -19,9 +19,8 @@ import java.util.List;
 @SuperBuilder(toBuilder = true)
 public class Member extends BaseEntity {
     @Column(unique = true)
-    private String email;
-    private String password;
     private String username;
+    private String password;
 
     public Collection<? extends GrantedAuthority> getGrantedAuthorities() {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
