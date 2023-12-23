@@ -2,6 +2,9 @@ package study.todolist.domain.todo.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import study.todolist.domain.member.entity.Member;
+import study.todolist.domain.member.exception.MemberNotFoundException;
+import study.todolist.domain.member.repository.MemberRepository;
 import study.todolist.domain.todo.TodoRepository;
 import study.todolist.domain.todo.dto.request.TodoRequest;
 import study.todolist.domain.todo.dto.response.ViewSingleResponse;
@@ -18,11 +21,15 @@ import java.util.stream.Collectors;
 public class TodoServiceImpl implements TodoService {
 
     private final TodoRepository todoRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public ViewSingleResponse createTodo(TodoRequest request) {
+        Member member = memberRepository.findById(request.getMemberId())
+                .orElseThrow(() -> new MemberNotFoundException("해당 ID의 회원이 존재하지 않습니다."));
+
         TodoTask todoTask = TodoTask.from(request.getTask());
-        Todo todo = Todo.of(todoTask, false, request.getPriority());
+        Todo todo = Todo.of(todoTask, false, request.getPriority(), member);
         todoRepository.save(todo);
         return new ViewSingleResponse(todo);
     }

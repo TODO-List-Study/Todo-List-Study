@@ -9,17 +9,11 @@ import study.todolist.domain.todo.entity.Priority;
 public class TodoRequest {
     private String task;
     private Priority priority;
+    private Long memberId;
 
-    public TodoRequest(String task, String priority) {
+    public TodoRequest(String task, String priority, Long memberId) {
         this.task = task;
         this.priority = Priority.valueOf(priority.toUpperCase());
-    }
-
-    public String getTask() {
-        return task;
-    }
-
-    public Priority getPriority() {
-        return priority;
+        this.memberId = getMemberId();
     }
 }
