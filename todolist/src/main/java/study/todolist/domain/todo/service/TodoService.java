@@ -11,4 +11,5 @@ public interface TodoService {
     ViewSingleResponse getSingleTodo(Long id);
     ViewSingleResponse updateTodo(Long id, String taskStr);
     ViewSingleResponse deleteTodo(Long id);
+    List<ViewSingleResponse> bulkCreateTodo(Integer count);
 }

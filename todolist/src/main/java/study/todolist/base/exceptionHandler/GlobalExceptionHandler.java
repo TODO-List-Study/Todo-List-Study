@@ -1,9 +1,12 @@
 package study.todolist.base.exceptionHandler;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import study.todolist.base.RsData;
 import study.todolist.domain.member.exception.MemberNotFoundException;
+import study.todolist.domain.todo.exception.BulkCreateTodoLimitExceededException;
 import study.todolist.domain.todo.exception.TodoNotFoundException;
 import study.todolist.global.exception.ErrorCode;
 import study.todolist.global.exception.ErrorCodeMapper;
@@ -26,5 +29,12 @@ public class GlobalExceptionHandler {
     public RsData<String> handleNotFoundException(MemberNotFoundException e) {
         ErrorCode errorCode = ErrorCodeMapper.getErrorCode(e);
         return RsData.of(errorCode);
+    }
+
+    @ExceptionHandler(BulkCreateTodoLimitExceededException.class)
+    public ResponseEntity<RsData<String>> handleBulkCreateTodoLimitExceededException(BulkCreateTodoLimitExceededException e) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(RsData.failOf(e.getMessage()));
     }
 }

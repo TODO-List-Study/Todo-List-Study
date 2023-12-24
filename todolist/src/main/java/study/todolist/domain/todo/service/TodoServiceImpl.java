@@ -2,23 +2,32 @@ package study.todolist.domain.todo.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import study.todolist.domain.member.entity.Member;
 import study.todolist.domain.member.exception.MemberNotFoundException;
 import study.todolist.domain.member.repository.MemberRepository;
-import study.todolist.domain.todo.TodoRepository;
 import study.todolist.domain.todo.dto.request.TodoRequest;
 import study.todolist.domain.todo.dto.response.ViewSingleResponse;
+import study.todolist.domain.todo.entity.Priority;
 import study.todolist.domain.todo.entity.Todo;
 import study.todolist.domain.todo.entity.TodoTask;
+import study.todolist.domain.todo.exception.BulkCreateTodoLimitExceededException;
 import study.todolist.domain.todo.exception.TodoNotFoundException;
+import study.todolist.domain.todo.repository.TodoRepository;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class TodoServiceImpl implements TodoService {
+
+    private static final int MAX_BULK_CREATE_COUNT = 5000;
 
     private final TodoRepository todoRepository;
     private final MemberRepository memberRepository;
@@ -72,5 +81,43 @@ public class TodoServiceImpl implements TodoService {
         }
         todo.delete();
         return new ViewSingleResponse(todo);
+    }
+
+    @Override
+    @Transactional
+    public List<ViewSingleResponse> bulkCreateTodo(Integer count) {
+
+        if (count > MAX_BULK_CREATE_COUNT) {
+            throw new BulkCreateTodoLimitExceededException("한 번에 생성할 수 있는 Todo의 개수는 " + MAX_BULK_CREATE_COUNT + "개를 넘을 수 없습니다.");
+        }
+
+        List<Todo> todos = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            Member member = getRandomMember();  // Random Member를 가져오는 메소드
+            TodoTask todoTask = generateRandomTodoTask();  // Random TodoTask를 생성하는 메소드
+            Todo todo = Todo.of(todoTask, false, generateRandomPriority(), member);
+            todos.add(todo);
+        }
+
+        todoRepository.saveAll(todos);
+        return todos.stream().map(ViewSingleResponse::new).collect(Collectors.toList());
+
+    }
+
+    private Member getRandomMember() {
+        long count = memberRepository.count();
+        long randomId = ThreadLocalRandom.current().nextLong(1, count + 1);
+
+        return memberRepository.findById(randomId).orElseThrow(() -> new MemberNotFoundException("해당 ID의 회원이 존재하지 않습니다."));
+    }
+
+    private TodoTask generateRandomTodoTask() {
+        String task = "Todo Task " + UUID.randomUUID().toString();
+        return TodoTask.from(task);
+    }
+
+    private Priority generateRandomPriority() {
+        return Priority.values()[ThreadLocalRandom.current().nextInt(Priority.values().length)];
+
     }
 }

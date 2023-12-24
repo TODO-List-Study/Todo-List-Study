@@ -61,4 +61,9 @@ public class TodoController {
         }
     }
 
+    @PostMapping("/bulk")
+    public RsData<List<ViewSingleResponse>> bulkCreateTodo(@RequestParam int count) {
+        List<ViewSingleResponse> responses = todoService.bulkCreateTodo(count);
+        return RsData.successOf(responses);
+    }
 }
