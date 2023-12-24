@@ -14,7 +14,6 @@ import study.todolist.domain.member.security.CustomUserDetails;
 import study.todolist.global.validator.PasswordValidator;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -42,10 +41,6 @@ public class MemberService implements UserDetailsService {
         return memberRepository.save(member);
     }
 
-    public Optional<Member> findById(Long id) {
-        return memberRepository.findById(id);
-    }
-
     public List<Member> findAll() {
         return memberRepository.findAll();
     }
@@ -57,7 +52,7 @@ public class MemberService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws MemberNotFoundException {
         Member member = memberRepository.findByUsername(username)
-                .orElseThrow(() -> new MemberNotFoundException("User not found with username: " + username));
+                .orElseThrow(() -> new MemberNotFoundException("[ " + username + " ]" + "에 해당하는 회원이 없습니다."));
 
         return new CustomUserDetails(member);
     }
