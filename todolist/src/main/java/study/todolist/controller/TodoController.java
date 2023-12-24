@@ -29,6 +29,15 @@ public class TodoController {
         return Envelope.success(response);
     }
 
+    @PostMapping("/create/bulk/{id}")
+    public Envelope<List> bulkCreate(@PathVariable("id") Long id,
+                                     @RequestParam int count){
+
+        List<TodoDto.Response> response = todoService.bulkTodo(id, count);
+
+        return Envelope.success(response);
+    }
+
     // 단건조회
     @GetMapping("/find/{id}")
     public Envelope findById(@PathVariable("id") Long id){

@@ -52,7 +52,7 @@ public class TodoService {
     }
 
     @Transactional
-    public List bulkTodo(Long id, Integer count){
+    public List<TodoDto.Response> bulkTodo(Long id, Integer count){
 
         if (count > MAX_COUNT)
             throw new OverMaxCountException(ErrorCode.OVER_MAX_COUNT);
