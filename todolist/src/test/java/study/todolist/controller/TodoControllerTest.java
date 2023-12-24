@@ -13,9 +13,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import study.todolist.dto.TodoDto;
-import study.todolist.entity.Status;
-import study.todolist.entity.TodoList;
+import study.todolist.entity.member.Member;
+import study.todolist.entity.todo.Status;
+import study.todolist.entity.todo.TodoList;
 import study.todolist.service.TodoService;
 
 import java.util.ArrayList;
@@ -45,19 +45,19 @@ class TodoControllerTest {
     public void 단건조회() throws Exception {
 
         // given
-        Long id = 1L;
-        TodoList todo = new TodoList("title", Status.BEFORE);
+        Member member = new Member(1L, "Test", null);
+        TodoList todo = new TodoList("title", Status.BEFORE, member);
 
         // stub
-        BDDMockito.given(todoService.findById(id)).willReturn(todo);
+        BDDMockito.given(todoService.findById(member.getTodoList().getId())).willReturn(todo);
 
         // when
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/todo/find/" + id)
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/todo/find/" + member.getId())
                         .accept(MediaType.APPLICATION_JSON))
                         .andExpect(MockMvcResultMatchers.status().isOk());
 
         // then
-        BDDMockito.verify(todoService).findById(id);
+        BDDMockito.verify(todoService).findById(member.getId());
     }
 
     @Test
@@ -65,10 +65,11 @@ class TodoControllerTest {
     public void 전체조회() throws Exception {
 
         // given
+        Member member = new Member(1L, "Test", null);
         List<TodoList> response = new ArrayList<>();
-        response.add(new TodoList("First", Status.BEFORE));
-        response.add(new TodoList("Second", Status.BEFORE));
-        response.add(new TodoList("Third", Status.BEFORE));
+        response.add(new TodoList("First", Status.BEFORE, member));
+        response.add(new TodoList("Second", Status.BEFORE, member));
+        response.add(new TodoList("Third", Status.BEFORE, member));
 
         // stub
         BDDMockito.given(todoService.findAll()).willReturn(response);
