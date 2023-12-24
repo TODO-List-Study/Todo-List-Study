@@ -41,11 +41,14 @@ public class TodoService {
 
     // 생성
     @Transactional
-    public TodoList createTodo(String title){
+    public TodoList createTodo(Long id, String title){
+
+        Member findMember = memberService.findById(id);
 
         TodoList todo = TodoList.builder()
                 .title(title)
                 .status(Status.BEFORE)
+                .member(findMember)
                 .build();
 
         return todoRepository.save(todo);

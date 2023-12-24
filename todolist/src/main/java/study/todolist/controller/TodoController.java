@@ -19,10 +19,11 @@ public class TodoController {
 
 
     // 생성
-    @PostMapping("/create")
-    public Envelope createTodo(@RequestBody TodoDto.Request request){
+    @PostMapping("/create/{id}")
+    public Envelope createTodo(@PathVariable("id") Long id,
+                               @RequestBody TodoDto.Request request){
 
-        TodoList todo = todoService.createTodo(request.getTitle());
+        TodoList todo = todoService.createTodo(id, request.getTitle());
 
         TodoDto.Response response = TodoDto.Response.of(todo);
 
