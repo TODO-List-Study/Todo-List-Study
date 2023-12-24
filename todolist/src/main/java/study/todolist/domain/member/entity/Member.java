@@ -22,6 +22,8 @@ public class Member extends BaseEntity {
     private String username;
     private String password;
 
+    private int dailyTodoCount = 0;
+
     public Collection<? extends GrantedAuthority> getGrantedAuthorities() {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
@@ -29,5 +31,17 @@ public class Member extends BaseEntity {
         grantedAuthorities.add(new SimpleGrantedAuthority("member"));
 
         return grantedAuthorities;
+    }
+
+    public void increaseDailyTodoCount() {
+        this.dailyTodoCount++;
+    }
+
+    public void resetDailyTodoCount() {
+        this.dailyTodoCount = 0;
+    }
+
+    public boolean isDailyTodoLimitExceeded() {
+        return this.dailyTodoCount >= 10;
     }
 }
