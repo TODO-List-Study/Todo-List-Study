@@ -15,7 +15,7 @@ import study.todolist.domain.member.entity.Member;
 @AllArgsConstructor
 public class Todo extends BaseEntity {
     private TodoTask task;
-    private Boolean isCompleted;
+    private Boolean isCompleted = false;
     private Priority priority;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
