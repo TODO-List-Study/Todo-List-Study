@@ -3,20 +3,29 @@ package study.todolist.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import study.todolist.dto.TodoDto;
+import study.todolist.entity.member.Member;
 import study.todolist.entity.todo.Status;
 import study.todolist.entity.todo.TodoList;
 import study.todolist.global.error.ErrorCode;
 import study.todolist.global.error.exception.EntityNotFoundException;
+import study.todolist.global.error.exception.OverMaxCountException;
 import study.todolist.repository.todo.TodoRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class TodoService {
 
+    private static final Integer MAX_COUNT = 5000;
+
     private final TodoRepository todoRepository;
+    private final MemberService memberService;
 
     // 단건조회
     public TodoList findById(Long id){
@@ -40,6 +49,36 @@ public class TodoService {
                 .build();
 
         return todoRepository.save(todo);
+    }
+
+    @Transactional
+    public List bulkTodo(Long id, Integer count){
+
+        if (count > MAX_COUNT)
+            throw new OverMaxCountException(ErrorCode.OVER_MAX_COUNT);
+
+        Member findMember = memberService.findById(id);
+
+        List<TodoList> todos = new ArrayList<>();
+        Random random = new Random();
+
+        for (int i=0; i<count; i++){
+
+            String title = "Title " + random.nextInt(count);
+            Status status = Status.values()[random.nextInt(Status.values().length)];
+
+            TodoList todo = TodoList.builder()
+                    .title(title)
+                    .status(status)
+                    .member(findMember)
+                    .build();
+
+            todos.add(todo);
+        }
+
+        return todos.stream()
+                .map(TodoDto.Response::of)
+                .collect(Collectors.toList());
     }
 
     // 수정 (수행 여부)
