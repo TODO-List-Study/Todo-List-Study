@@ -1,11 +1,10 @@
 package study.todolist.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import study.todolist.dto.TodoDto;
 import study.todolist.global.Envelope;
-import study.todolist.entity.TodoList;
+import study.todolist.entity.todo.TodoList;
 import study.todolist.service.TodoService;
 
 import java.util.List;
@@ -67,9 +66,10 @@ public class TodoController {
 
     // check
     @PatchMapping("/check/{id}")
-    public Envelope checkTodo(@PathVariable Long id){
+    public Envelope checkTodo(@PathVariable Long id,
+                              @RequestBody TodoDto.ChangeStatus status){
 
-        todoService.updateCheck(id);
+        todoService.updateStatus(id, status.getStatus());
         TodoDto.Response response = TodoDto.Response.of(todoService.findById(id));
 
         return Envelope.success(response);

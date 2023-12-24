@@ -14,6 +14,11 @@ public class TodoDto {
         private String title;
     }
 
+    @Data
+    public static class ChangeStatus{
+        private Status status;
+    }
+
     @Data @Builder
     @NoArgsConstructor @AllArgsConstructor
     public static class Response{
