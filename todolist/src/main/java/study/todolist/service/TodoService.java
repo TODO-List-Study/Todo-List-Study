@@ -6,7 +6,7 @@ import study.todolist.entity.todo.Status;
 import study.todolist.entity.todo.TodoList;
 import study.todolist.global.error.ErrorCode;
 import study.todolist.global.error.exception.EntityNotFoundException;
-import study.todolist.repository.TodoRepository;
+import study.todolist.repository.todo.TodoRepository;
 
 import java.util.List;
 
