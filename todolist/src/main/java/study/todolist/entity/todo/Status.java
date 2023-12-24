@@ -1,4 +1,4 @@
-package study.todolist.entity;
+package study.todolist.entity.todo;
 
 public enum Status {
 

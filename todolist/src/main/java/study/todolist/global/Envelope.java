@@ -6,11 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
-import study.todolist.dto.TodoDto;
-import study.todolist.entity.TodoList;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter @Builder
 @NoArgsConstructor @AllArgsConstructor

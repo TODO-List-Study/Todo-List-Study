@@ -2,8 +2,8 @@ package study.todolist.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import study.todolist.entity.Status;
-import study.todolist.entity.TodoList;
+import study.todolist.entity.todo.Status;
+import study.todolist.entity.todo.TodoList;
 import study.todolist.global.error.ErrorCode;
 import study.todolist.global.error.exception.EntityNotFoundException;
 import study.todolist.repository.TodoRepository;
