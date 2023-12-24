@@ -2,6 +2,7 @@ package study.todolist.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import study.todolist.entity.todo.Status;
 import study.todolist.entity.todo.TodoList;
 import study.todolist.global.error.ErrorCode;
@@ -11,6 +12,7 @@ import study.todolist.repository.todo.TodoRepository;
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class TodoService {
 
@@ -29,6 +31,7 @@ public class TodoService {
     }
 
     // 생성
+    @Transactional
     public TodoList createTodo(String title){
 
         TodoList todo = TodoList.builder()
@@ -40,6 +43,7 @@ public class TodoService {
     }
 
     // 수정 (수행 여부)
+    @Transactional
     public void updateStatus(Long id, Status status){
 
         TodoList findTodo = findById(id);
@@ -48,6 +52,7 @@ public class TodoService {
     }
 
     // 수정 (내용)
+    @Transactional
     public Long updateTitle(Long id, String title){
 
         TodoList findTodo = findById(id);
@@ -56,7 +61,7 @@ public class TodoService {
 
         return id;
     }
-
+    @Transactional
     public void delete(Long id){
 
         TodoList findTodo = findById(id);
