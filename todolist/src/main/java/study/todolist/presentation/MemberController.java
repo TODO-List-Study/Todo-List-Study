@@ -2,10 +2,8 @@ package study.todolist.presentation;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import study.todolist.application.MemberCommandService;
 import study.todolist.global.dto.ResponseEnvelope;
 import study.todolist.presentation.dto.req.CreateMemberReq;
@@ -19,6 +17,7 @@ public class MemberController {
     private final MemberCommandService memberCommandService;
 
     @PostMapping("/signup")
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEnvelope<MemberIdRes> createMember(@Valid @RequestBody CreateMemberReq createMemberReq) {
         Long memberId = memberCommandService.createMember(createMemberReq.email(), createMemberReq.password());
 

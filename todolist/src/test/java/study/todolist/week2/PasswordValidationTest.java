@@ -35,7 +35,7 @@ public class PasswordValidationTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/members/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createMemberReq)))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
     }
 
     @Test
