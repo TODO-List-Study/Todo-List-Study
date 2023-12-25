@@ -1,5 +1,6 @@
 package study.todolist.presentation;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +18,8 @@ public class MemberController {
 
     private final MemberCommandService memberCommandService;
 
-    @PostMapping
-    public ResponseEnvelope<MemberIdRes> createMember(@RequestBody CreateMemberReq createMemberReq) {
+    @PostMapping("/signup")
+    public ResponseEnvelope<MemberIdRes> createMember(@Valid @RequestBody CreateMemberReq createMemberReq) {
         Long memberId = memberCommandService.createMember(createMemberReq.email(), createMemberReq.password());
 
         return ResponseEnvelope.of(new MemberIdRes(memberId));

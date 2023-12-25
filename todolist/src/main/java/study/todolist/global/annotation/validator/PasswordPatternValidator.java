@@ -2,22 +2,24 @@ package study.todolist.global.annotation.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import study.todolist.domain.exception.PasswordValidateException;
+import org.springframework.stereotype.Component;
 import study.todolist.global.annotation.PasswordValidate;
 
+@Component
 public class PasswordPatternValidator implements ConstraintValidator<PasswordValidate, String> {
 
     private static final String PASSWORD_PATTERN = "^(?=.*[A-Z])(?=.*[!@#$%^&*()+=]).*$";
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return value != null && isCorrectFormat(value);
+        return value != null && isCorrectFormat(value) && isCorrectRange(value.length());
     }
 
     private boolean isCorrectFormat(String value) {
-        if (!value.matches(PASSWORD_PATTERN)) {
-            throw new PasswordValidateException();
-        }
-        return true;
+        return value.matches(PASSWORD_PATTERN);
+    }
+
+    private boolean isCorrectRange(int passwordLength) {
+        return passwordLength >= 8 && passwordLength <= 20;
     }
 }
