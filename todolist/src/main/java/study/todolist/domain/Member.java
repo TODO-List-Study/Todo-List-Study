@@ -18,8 +18,10 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false, unique = true)
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -28,10 +30,6 @@ public class Member {
     public Member(String email, String password) {
         this.email = email;
         this.password = password;
-    }
-
-    public Member(Long id) {
-        this.id = id;
     }
 
 }

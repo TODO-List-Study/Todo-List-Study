@@ -19,7 +19,7 @@ public class MemberController {
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEnvelope<MemberIdRes> createMember(@Valid @RequestBody CreateMemberReq createMemberReq) {
-        Long memberId = memberCommandService.createMember(createMemberReq.email(), createMemberReq.password());
+        Long memberId = memberCommandService.signUp(createMemberReq.email(), createMemberReq.password());
 
         return ResponseEnvelope.of(new MemberIdRes(memberId));
     }
