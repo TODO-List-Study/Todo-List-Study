@@ -6,17 +6,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import study.todolist.entity.todo.TodoList;
 
+import java.util.List;
+
 @Entity @Getter
 @NoArgsConstructor @AllArgsConstructor
 public class Member {
 
-    @Id
+    @Id @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
 
-    @OneToOne
-    @JoinColumn(name = "todo_id")
-    private TodoList todoList;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "member")
+    private List<TodoList> todoList;
 }

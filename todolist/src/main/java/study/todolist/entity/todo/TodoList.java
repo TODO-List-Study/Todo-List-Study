@@ -18,7 +18,8 @@ public class TodoList{
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
-    @OneToOne(mappedBy = "todoList")
+    @ManyToOne
+    @JoinColumn(name = "member_id")
     private Member member;
 
     public void updateTitle(String title){
