@@ -77,6 +77,7 @@ public class TodoService {
                     .build();
 
             todos.add(todo);
+            todoRepository.save(todo);
         }
 
         return todos.stream()
