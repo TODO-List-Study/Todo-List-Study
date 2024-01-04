@@ -11,6 +11,8 @@ public class MemberDto {
     @Data
     public static class Request{
 
+        private String username;
+
         private String email;
 
         private String password;
