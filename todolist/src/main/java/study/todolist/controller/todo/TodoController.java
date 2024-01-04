@@ -1,4 +1,4 @@
-package study.todolist.controller;
+package study.todolist.controller.todo;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/todo")
+@RequestMapping("/todo")
 public class TodoController {
 
     private final TodoService todoService;
