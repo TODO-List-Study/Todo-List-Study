@@ -11,6 +11,10 @@ public enum ErrorCode {
 
     NOT_FOUNT_MEMBER(HttpStatus.NOT_FOUND, "M-001", "Member를 찾을 수 없습니다."),
     ALREADY_REGISTERED_MEMBER(HttpStatus.BAD_REQUEST, "M-002", "이미 가입되어있는 Email입니다."),
+
+
+    TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "A-001", "토큰이 만료되었습니다."),
+    NOT_VALID_TOKEN(HttpStatus.UNAUTHORIZED, "A-002", "해당 토큰은 유효한 토큰이 아닙니다."),
     ;
 
 
