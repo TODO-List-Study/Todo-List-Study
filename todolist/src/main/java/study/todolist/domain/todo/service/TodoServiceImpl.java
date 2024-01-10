@@ -12,7 +12,6 @@ import study.todolist.domain.todo.entity.Priority;
 import study.todolist.domain.todo.entity.Todo;
 import study.todolist.domain.todo.entity.TodoTask;
 import study.todolist.domain.todo.exception.BulkCreateTodoLimitExceededException;
-import study.todolist.domain.todo.exception.TodoCreationLimitExceededException;
 import study.todolist.domain.todo.exception.TodoNotFoundException;
 import study.todolist.domain.todo.repository.TodoRepository;
 
@@ -32,7 +31,6 @@ public class TodoServiceImpl implements TodoService {
 
     private final TodoRepository todoRepository;
     private final MemberRepository memberRepository;
-    private final DailyTodoCountService dailyTodoCountService;
 
     @Override
     public ViewSingleResponse createTodo(TodoRequest request) {
@@ -42,14 +40,8 @@ public class TodoServiceImpl implements TodoService {
         TodoTask task = TodoTask.from(request.getTask());
         Priority priority = request.getPriority();
 
-        if (dailyTodoCountService.isDailyTodoLimitExceeded(member)) {
-            throw new TodoCreationLimitExceededException("하루에 생성할 수 있는 할 일의 개수를 초과하였습니다.");
-        }
-
         Todo todo = Todo.of(task, false, priority, member);
         todoRepository.save(todo);
-
-        dailyTodoCountService.increaseDailyTodoCount(member);
 
         return new ViewSingleResponse(todo);
     }
@@ -131,4 +123,5 @@ public class TodoServiceImpl implements TodoService {
         return Priority.values()[ThreadLocalRandom.current().nextInt(Priority.values().length)];
 
     }
+
 }

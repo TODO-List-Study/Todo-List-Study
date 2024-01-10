@@ -1,5 +1,6 @@
 package study.todolist.domain.todo.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -14,6 +15,8 @@ import study.todolist.domain.member.entity.Member;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Todo extends BaseEntity {
+
+    @Column(nullable = false)
     private TodoTask task;
     private Boolean isCompleted = false;
     private Priority priority;

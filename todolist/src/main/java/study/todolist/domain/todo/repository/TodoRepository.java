@@ -1,12 +1,12 @@
 package study.todolist.domain.todo.repository;
 
-import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.CrudRepository;
 import study.todolist.domain.todo.entity.Todo;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface TodoRepository extends Repository<Todo, Long> {
+public interface TodoRepository extends CrudRepository<Todo, Long> {
     Optional<Todo> findById(Long id);
     Todo save(Todo Todo);
     List<Todo> findAll();
