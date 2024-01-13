@@ -25,8 +25,11 @@ public class Todo extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Column(nullable = false)
+    private Boolean isDeleted = false;
+
     public static Todo of(TodoTask task, Boolean isCompleted, Priority priority, Member member) {
-        return new Todo(task, isCompleted, priority, member);
+        return new Todo(task, isCompleted, priority, member, false);
     }
 
     public void setTask(TodoTask task) {
@@ -34,8 +37,11 @@ public class Todo extends BaseEntity {
         update();
     }
 
-    @Override
+    public void delete() {
+        this.isDeleted = true;
+    }
+
     public boolean isDeleted() {
-        return super.isDeleted();
+        return this.isDeleted;
     }
 }

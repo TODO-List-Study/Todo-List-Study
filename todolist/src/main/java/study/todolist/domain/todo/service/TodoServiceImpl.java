@@ -94,9 +94,11 @@ public class TodoServiceImpl implements TodoService {
             throw new BulkCreateTodoLimitExceededException("한 번에 생성할 수 있는 Todo의 개수는 " + MAX_BULK_CREATE_COUNT + "개를 넘을 수 없습니다.");
         }
 
+        long memberCount = memberRepository.count();
+
         List<Todo> todos = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            Member member = getRandomMember();  // Random Member를 가져오는 메소드
+            Member member = getRandomMember(memberCount);  // Random Member를 가져오는 메소드
             TodoTask todoTask = generateRandomTodoTask();  // Random TodoTask를 생성하는 메소드
             Todo todo = Todo.of(todoTask, false, generateRandomPriority(), member);
             todos.add(todo);
@@ -107,9 +109,8 @@ public class TodoServiceImpl implements TodoService {
 
     }
 
-    private Member getRandomMember() {
-        long count = memberRepository.count();
-        long randomId = ThreadLocalRandom.current().nextLong(1, count + 1);
+    private Member getRandomMember(long memberCount) {
+        long randomId = ThreadLocalRandom.current().nextLong(1, memberCount + 1);
 
         return memberRepository.findById(randomId).orElseThrow(() -> new MemberNotFoundException("해당 ID의 회원이 존재하지 않습니다."));
     }
