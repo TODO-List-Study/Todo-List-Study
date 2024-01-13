@@ -9,4 +9,5 @@ public interface MemberRepository {
     Optional<Member> findById(Long id);
     Member save(Member member);
     long count();
+    Optional<Member> findByEmail(String email);
 }
