@@ -1,59 +1,66 @@
 package study.todolist.domain.member.service;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import study.todolist.domain.member.dto.MemberDto;
+import study.todolist.base.jwt.dto.TokenDto;
+import study.todolist.base.jwt.service.TokenService;
+import study.todolist.domain.member.dto.JoinRequest;
+import study.todolist.domain.member.dto.LoginDto;
+import study.todolist.domain.member.dto.UsernameRequest;
+import study.todolist.domain.member.entity.AuthLevel;
 import study.todolist.domain.member.entity.Member;
-import study.todolist.domain.member.exception.MemberNotFoundException;
+import study.todolist.domain.member.exception.NotMatchPasswordException;
 import study.todolist.domain.member.repository.MemberRepository;
-import study.todolist.domain.member.security.CustomUserDetails;
-import study.todolist.global.validator.PasswordValidator;
 
-import java.util.List;
+import javax.security.auth.login.AccountNotFoundException;
 
 @Service
+@Builder
 @RequiredArgsConstructor
-public class MemberService implements UserDetailsService {
+public class MemberService {
+
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final PasswordValidator passwordValidator;
+    private final TokenService tokenService;
 
     public Member findById(long id) {
         return memberRepository.findById(id).orElseThrow();
     }
 
-    @Transactional
-    public Member createMember(MemberDto memberDto) {
-
-        if (!passwordValidator.validate(memberDto.getPassword())) {
-            throw new IllegalArgumentException("대문자, 특수문자 포함하여 8자 이상으로 입력해주세요.");
-        }
-
-        Member member = Member.builder()
-                .username(memberDto.getUsername())
-                .password(passwordEncoder.encode(memberDto.getPassword()))
+    public Member createMember (JoinRequest joinRequest){
+        Member member = Member.builder().username(joinRequest.getUsername())
+                .password(joinRequest.getPassword())
+                .email(joinRequest.getEmail())
+                .authLevel(AuthLevel.MEMBER)
                 .build();
+
+        member.encryptPassword(passwordEncoder);
 
         return memberRepository.save(member);
     }
 
-    public List<Member> findAll() {
-        return memberRepository.findAll();
+    public boolean isDuplicateUsername (UsernameRequest usernameRequest){
+        String username = usernameRequest.getUsername();
+        return memberRepository.findByUsername(username).isPresent();
     }
 
-    public void deleteById(Long id) {
-        memberRepository.deleteById(id);
+    public TokenDto login (LoginDto loginDto) throws Exception {
+
+        Member member = memberRepository.findByUsername(loginDto.getUsername())
+                .orElseThrow(() -> new AccountNotFoundException("유저를 찾을 수 없습니다."));
+
+        boolean matches = passwordEncoder.matches(loginDto.getPassword(), member.getPassword());
+        if (!matches) {
+            throw new NotMatchPasswordException("비밀번호가 일치하지 않습니다.");
+        }
+
+        return tokenService.provideTokenWithLoginDto(loginDto);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws MemberNotFoundException {
-        Member member = memberRepository.findByUsername(username)
-                .orElseThrow(() -> new MemberNotFoundException("[ " + username + " ]" + "에 해당하는 회원이 없습니다."));
-
-        return new CustomUserDetails(member);
+    public Member findByUsername (String username) throws Exception {
+        return memberRepository.findByUsername(username)
+                .orElseThrow(() -> new AccountNotFoundException("User not Found"));
     }
 }
