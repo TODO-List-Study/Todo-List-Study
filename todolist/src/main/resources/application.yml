@@ -1,0 +1,7 @@
+server:
+  port: 8081
+
+token:
+  secret: tokenSecret # ?? ???
+  access-token-expiration-time: 9000000
+  refresh-token-expiration-time: 1209600000
