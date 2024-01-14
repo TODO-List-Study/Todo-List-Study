@@ -48,6 +48,7 @@ public class TodoService {
         TodoList todo = TodoList.builder()
                 .title(title)
                 .status(Status.BEFORE)
+                .viewer(0)
                 .member(findMember)
                 .build();
 
@@ -73,6 +74,7 @@ public class TodoService {
             TodoList todo = TodoList.builder()
                     .title(title)
                     .status(status)
+                    .viewer(0)
                     .member(findMember)
                     .build();
 
@@ -104,6 +106,15 @@ public class TodoService {
 
         return id;
     }
+
+    @Transactional
+    public void updateViewer(Long id){
+
+        TodoList findTodo = findById(id);
+
+        findTodo.updateViewer();
+    }
+
     @Transactional
     public void delete(Long id){
 

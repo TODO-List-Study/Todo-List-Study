@@ -44,6 +44,7 @@ public class TodoController {
     public Envelope findById(@PathVariable("id") Long id){
 
         TodoList todo = todoService.findById(id);
+        todoService.updateViewer(id); // add viewer
 
         TodoDto.Response response = TodoDto.Response.of(todo);
 

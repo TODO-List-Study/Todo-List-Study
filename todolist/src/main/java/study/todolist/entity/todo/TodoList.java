@@ -17,6 +17,7 @@ public class TodoList{
     private String title;
     @Enumerated(value = EnumType.STRING)
     private Status status;
+    private Integer viewer;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -29,11 +30,16 @@ public class TodoList{
     public void updateStatus(Status status){
         this.status = status;
     }
+    public void updateViewer(){
+
+        this.viewer += 1;
+    }
 
     @Builder
-    public TodoList(String title, Status status, Member member) {
+    public TodoList(String title, Status status, Integer viewer, Member member) {
         this.title = title;
         this.status = status;
+        this.viewer = viewer;
         this.member = member;
     }
 }
