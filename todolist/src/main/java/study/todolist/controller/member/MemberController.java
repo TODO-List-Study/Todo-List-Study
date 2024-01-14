@@ -12,7 +12,7 @@ import study.todolist.service.MemberService;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/todo/member")
 @RequiredArgsConstructor
 public class MemberController {
 
